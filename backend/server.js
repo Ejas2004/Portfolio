@@ -74,31 +74,8 @@ app.post('/api/contact', async (req, res) => {
 
     console.log('✅ Email sent successfully via Resend:', data);
 
-    // Send auto-reply to the visitor
-    const autoReply = await resend.emails.send({
-      from: 'Ejas S <onboarding@resend.dev>',
-      to: [email],
-      subject: 'Thank you for contacting me!',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #2563eb;">Thank You for Your Message!</h2>
-          <p>Hi ${name},</p>
-          <p>Thank you for reaching out! I've received your message and will get back to you as soon as possible.</p>
-          <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Your message:</strong></p>
-            <p style="background-color: white; padding: 15px; border-radius: 4px;">${message}</p>
-          </div>
-          <p>Best regards,<br>Ejas S</p>
-        </div>
-      `,
-    });
-
-    if (autoReply.error) {
-      console.warn('⚠️  Auto-reply failed:', autoReply.error);
-      // Don't fail the whole request if auto-reply fails
-    } else {
-      console.log('✅ Auto-reply sent successfully');
-    }
+    // Auto-reply disabled on Resend free tier
+    // To enable auto-replies, verify a domain at resend.com/domains
 
     res.status(200).json({ message: 'Email sent successfully' });
   } catch (error) {
