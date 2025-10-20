@@ -25,8 +25,10 @@ const Contact = () => {
     setStatus({ submitting: true, submitted: false, error: false });
 
     try {
-      // Replace with your backend endpoint
-      const response = await fetch('http://localhost:5000/api/contact', {
+      // Option 1: Try backend first
+      const apiUrl = 'https://portfolio-backend-9hvq.onrender.com/api/contact';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,9 +43,34 @@ const Contact = () => {
           setStatus({ submitting: false, submitted: false, error: false });
         }, 5000);
       } else {
-        throw new Error('Failed to send message');
+        // If backend fails, fallback to FormSubmit
+        console.log('Backend failed, using FormSubmit fallback...');
+        const formSubmitResponse = await fetch('https://formsubmit.co/ejas.connect@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            _subject: 'Portfolio Contact Form Submission',
+          }),
+        });
+        
+        if (formSubmitResponse.ok) {
+          setStatus({ submitting: false, submitted: true, error: false });
+          setFormData({ name: '', email: '', message: '' });
+          setTimeout(() => {
+            setStatus({ submitting: false, submitted: false, error: false });
+          }, 5000);
+        } else {
+          throw new Error('Both backend and fallback failed');
+        }
       }
     } catch (error) {
+      console.error('Contact form error:', error);
       setStatus({ submitting: false, submitted: false, error: true });
       setTimeout(() => {
         setStatus({ submitting: false, submitted: false, error: false });
@@ -82,7 +109,7 @@ const Contact = () => {
                 </h4>
                 <div className="space-y-3">
                   <a
-                    href="https://github.com/yourusername"
+                    href="https://github.com/Ejas2004"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 group"
@@ -93,7 +120,7 @@ const Contact = () => {
                     <span className="font-medium">GitHub</span>
                   </a>
                   <a
-                    href="https://linkedin.com/in/yourusername"
+                    href="https://linkedin.com/in/ejas-s-603b28296"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 group"
@@ -104,13 +131,13 @@ const Contact = () => {
                     <span className="font-medium">LinkedIn</span>
                   </a>
                   <a
-                    href="mailto:your.email@example.com"
+                    href="mailto:ejas.connect@gmail.com"
                     className="flex items-center space-x-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 group"
                   >
                     <div className="p-3 bg-white dark:bg-dark-bg rounded-lg group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
                       <FaEnvelope size={24} />
                     </div>
-                    <span className="font-medium">your.email@example.com</span>
+                    <span className="font-medium">ejas.connect@gmail.com</span>
                   </a>
                 </div>
               </div>
@@ -203,7 +230,11 @@ const Contact = () => {
 
                 {status.error && (
                   <div className="p-4 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg animate-scale-in">
-                    Failed to send message. Please try again or email me directly.
+                    <p className="font-semibold mb-2">Failed to send message</p>
+                    <p className="text-sm">The backend server may be unavailable. Please email me directly at:</p>
+                    <a href="mailto:ejas.connect@gmail.com" className="text-sm font-medium underline hover:text-red-800 dark:hover:text-red-200">
+                      ejas.connect@gmail.com
+                    </a>
                   </div>
                 )}
               </form>
