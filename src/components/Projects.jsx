@@ -16,9 +16,9 @@ const Projects = () => {
       description:
         'A modern, responsive personal portfolio showcasing my skills, projects, and creative work, built with attention to design and user experience.',
       techStack: ['React', 'TypeScript', 'Node.js', 'Express','tailwindcss'],
-      image: 'https://via.placeholder.com/600x400/4A5568/FFFFFF?text=Fitness+Tracker',
+      image: './portfolio-img.png',
       github: 'https://github.com/Ejas2004/Portfolio.git',
-      live: 'https://fitness-tracker.demo.com',
+      live: 'https://portfolio-tau-livid-59.vercel.app/',
     },
     // {
     //   title: 'Medical Diagnosis App',
