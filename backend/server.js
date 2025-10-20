@@ -1,4 +1,5 @@
 import express from 'express';
+import express from 'express';
 import cors from 'cors';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
@@ -8,8 +9,20 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// CORS Configuration - Allow your Vercel frontend
+const corsOptions = {
+  origin: [
+    'https://portfolio-tau-livid-59.vercel.app',
+    'http://localhost:5173', // For local development
+    'http://localhost:3000'
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Initialize Resend
