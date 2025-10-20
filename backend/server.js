@@ -50,7 +50,7 @@ app.post('/api/contact', async (req, res) => {
     // Send email to yourself using Resend
     const { data, error } = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>', // Resend verified sender
-      to: ['idavazhikal123@gmail.com'], // Your Resend verified email
+      to: ['ejas.connect@gmail.com'], // Your Resend verified email
       replyTo: email, // Visitor's email for easy reply
       subject: `Portfolio Contact: Message from ${name}`,
       html: `
