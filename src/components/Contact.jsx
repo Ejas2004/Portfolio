@@ -45,18 +45,18 @@ const Contact = () => {
       } else {
         // If backend fails, fallback to FormSubmit
         console.log('Backend failed, using FormSubmit fallback...');
+        
+        // FormSubmit requires form submission, not JSON
+        const submitData = new FormData();
+        submitData.append('name', formData.name);
+        submitData.append('email', formData.email);
+        submitData.append('message', formData.message);
+        submitData.append('_subject', 'Portfolio Contact Form Submission');
+        submitData.append('_captcha', 'false'); // Disable captcha for better UX
+        
         const formSubmitResponse = await fetch('https://formsubmit.co/ejas.connect@gmail.com', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-            _subject: 'Portfolio Contact Form Submission',
-          }),
+          body: submitData,
         });
         
         if (formSubmitResponse.ok) {

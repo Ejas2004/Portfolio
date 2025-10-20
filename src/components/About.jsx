@@ -18,7 +18,7 @@ const About = () => {
                 <div className="relative w-full h-full bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
                   {/* Replace with your actual image */}
                   <img
-                    src="https://via.placeholder.com/400x400/666666/FFFFFF?text=Your+Photo"
+                    src="https://ui-avatars.com/api/?name=Your+Name&size=400&background=2563eb&color=fff&bold=true"
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
