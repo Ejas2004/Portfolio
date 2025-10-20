@@ -1,5 +1,4 @@
 import express from 'express';
-import express from 'express';
 import cors from 'cors';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
