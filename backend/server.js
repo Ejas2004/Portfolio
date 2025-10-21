@@ -41,10 +41,22 @@ try {
 
 // Contact form endpoint (POST only)
 app.post('/api/contact', async (req, res) => {
+  // Log ALL incoming requests
+  console.log('\n' + '='.repeat(50));
+  console.log('📨 NEW CONTACT FORM REQUEST');
+  console.log('🕐 Time:', new Date().toISOString());
+  console.log('📍 From IP:', req.ip || req.connection.remoteAddress);
+  console.log('📦 Body:', JSON.stringify(req.body, null, 2));
+  console.log('='.repeat(50) + '\n');
+
   const { name, email, message } = req.body;
 
   // Validation
   if (!name || !email || !message) {
+    console.error('❌ Validation failed: Missing fields');
+    console.error('  name:', name ? '✅' : '❌');
+    console.error('  email:', email ? '✅' : '❌');
+    console.error('  message:', message ? '✅' : '❌');
     return res.status(400).json({ error: 'All fields are required' });
   }
 
@@ -84,7 +96,11 @@ app.post('/api/contact', async (req, res) => {
       return res.status(500).json({ error: 'Failed to send email: ' + error.message });
     }
 
-    console.log('✅ Email sent successfully via Resend:', data);
+    console.log('✅ Email sent successfully via Resend');
+    console.log('📬 Email ID:', data.id);
+    console.log('📧 From:', name, '('+email+')');
+    console.log('🕐 Timestamp:', new Date().toISOString());
+    console.log('🔍 Track at: https://resend.com/emails/' + data.id);
 
     // Auto-reply disabled on Resend free tier
     // To enable auto-replies, verify a domain at resend.com/domains

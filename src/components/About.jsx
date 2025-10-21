@@ -42,7 +42,7 @@ const About = () => {
                     Bachelor of Science in Computer Science
                   </p>
                   <p className="text-gray-500 dark:text-gray-500 text-sm">
-                    Kerala University• 2020-2024
+                    Kerala University• 2022-2025
                   </p>
                 </div>
                 <div className="transform transition-all duration-300 hover:translate-x-2">

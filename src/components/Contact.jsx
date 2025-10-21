@@ -24,9 +24,19 @@ const Contact = () => {
     e.preventDefault();
     setStatus({ submitting: true, submitted: false, error: false });
 
+    // Log submission attempt
+    console.log('📨 Contact form submitted:', {
+      name: formData.name,
+      email: formData.email,
+      messageLength: formData.message.length,
+      timestamp: new Date().toISOString()
+    });
+
     try {
       // Option 1: Try backend first
       const apiUrl = 'https://portfolio-backend-9hvq.onrender.com/api/contact';
+      
+      console.log('🔄 Sending to backend:', apiUrl);
       
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -36,15 +46,22 @@ const Contact = () => {
         body: JSON.stringify(formData),
       });
 
+      console.log('📊 Backend response status:', response.status);
+
       if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Backend success:', data);
         setStatus({ submitting: false, submitted: true, error: false });
         setFormData({ name: '', email: '', message: '' });
         setTimeout(() => {
           setStatus({ submitting: false, submitted: false, error: false });
         }, 5000);
       } else {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('❌ Backend failed:', response.status, errorData);
+        
         // If backend fails, fallback to FormSubmit
-        console.log('Backend failed, using FormSubmit fallback...');
+        console.log('🔄 Trying FormSubmit fallback...');
         
         // FormSubmit requires form submission, not JSON
         const submitData = new FormData();
@@ -59,18 +76,26 @@ const Contact = () => {
           body: submitData,
         });
         
+        console.log('📊 FormSubmit response status:', formSubmitResponse.status);
+        
         if (formSubmitResponse.ok) {
+          console.log('✅ FormSubmit success');
           setStatus({ submitting: false, submitted: true, error: false });
           setFormData({ name: '', email: '', message: '' });
           setTimeout(() => {
             setStatus({ submitting: false, submitted: false, error: false });
           }, 5000);
         } else {
+          console.error('❌ FormSubmit failed:', formSubmitResponse.status);
           throw new Error('Both backend and fallback failed');
         }
       }
     } catch (error) {
-      console.error('Contact form error:', error);
+      console.error('💥 Contact form error:', error);
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack
+      });
       setStatus({ submitting: false, submitted: false, error: true });
       setTimeout(() => {
         setStatus({ submitting: false, submitted: false, error: false });
