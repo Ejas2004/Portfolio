@@ -13,8 +13,6 @@ const corsOptions = {
   origin: [
     'https://portfolio-tau-livid-59.vercel.app',
     'http://localhost:5173', // For local development
-    'http://localhost:5174', // Vite alternative port
-    'http://localhost:5175', // Vite alternative port 2
     'http://localhost:3000'
   ],
   methods: ['GET', 'POST', 'OPTIONS'],
