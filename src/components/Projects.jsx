@@ -20,15 +20,15 @@ const Projects = () => {
       github: 'https://github.com/Ejas2004/Portfolio.git',
       live: 'https://portfolio-tau-livid-59.vercel.app/',
     },
-    // {
-    //   title: 'Medical Diagnosis App',
-    //   description:
-    //     'A medical diagnosis assistance tool that helps healthcare professionals with preliminary assessments. Includes symptom checker and medical history management.',
-    //   techStack: ['React', 'Node.js', 'MongoDB', 'Express', 'TailwindCSS'],
-    //   image: 'https://via.placeholder.com/600x400/4A5568/FFFFFF?text=Medical+Diagnosis',
-    //   github: 'https://github.com/yourusername/medical-diagnosis',
-    //   live: 'https://medical-diagnosis.demo.com',
-    // },
+    {
+      title: 'IMDb Clone',
+      description:
+        `It's a modern movie app for browsing popular films, managing watchlists, and exploring subscription plans..`,
+      techStack: ['React 18', 'React Router DOM', 'Axios', 'Lucide React', 'TMDb API'],
+      image: './imdb-img.png',
+      github: 'https://github.com/Ejas2004/IMDb-clone-React.git',
+      live: 'https://imdb-clone-9djj5i7y4-ejas2004s-projects.vercel.app/',
+    },
     // {
     //   title: 'E-Commerce Platform',
     //   description:
