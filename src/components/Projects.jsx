@@ -27,7 +27,7 @@ const Projects = () => {
       techStack: ['React 18', 'React Router DOM', 'Axios', 'Lucide React', 'TMDb API'],
       image: './imdb-img.png',
       github: 'https://github.com/Ejas2004/IMDb-clone-React.git',
-      live: 'https://imdb-clone-9djj5i7y4-ejas2004s-projects.vercel.app/',
+      live: 'https://imdb-clone-rosy-one.vercel.app/',
     },
     // {
     //   title: 'E-Commerce Platform',
